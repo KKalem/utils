@@ -20,6 +20,12 @@ def normalize(V):
     else:
         return np.array(V)/n
 
+def project(a,b):
+    """
+    project a vector (np array) a onto b
+    """
+    return (a.dot(b)/b.dot(b))*b
+
 def rotate_vec_vec(v1s, rads):
     """
     v1s is an array of shape (N,2) where each row is a vector
@@ -106,12 +112,28 @@ def euclid_distance(pos1,pos2):
         raise ValueError('Can not calc euclid_distance for these '+str(pos1)+
                          '  '+str(pos2)+'\nOrg error:'+str(e))
 
+def euclid_distance3(pos1,pos2):
+    return np.sqrt( (pos2[0]-pos1[0])**2 +
+                    (pos2[1]-pos1[1])**2 +
+                    (pos2[2]-pos1[2])**2)
+
 def euclid_distance_vec(pos1,pos2):
     """
     pos's are numpy arrays with shape >= (:,2)
     """
 
     return np.sqrt(np.square(pos2[:,0]-pos1[:,0]) + np.square(pos2[:,1]-pos1[:,1]))
+
+def magnitude3_vec(vecs):
+    """
+    vecs is a np array of (N,3)
+    """
+    xsq = vecs[:,0]**2
+    ysq = vecs[:,1]**2
+    zsq = vecs[:,2]**2
+    sumsq = xsq+ysq+zsq
+    return np.sqrt(sumsq)
+
 
 
 # returns a line in the form y = mx+b, returns the m,b
