@@ -14,6 +14,20 @@ ZERO = 1e-15
 def quat_to_yaw(quat):
     return math.atan2(2.*(quat[0]*quat[1] + quat[3]*quat[2]), quat[3]**2 + quat[0]**2 - quat[1]**2 - quat[2]**2)
 
+def vec3_to_yaw_pitch(vec3):
+    x,y,z = vec3
+    if z == 0:
+        pitch = 0
+    else:
+        pitch = np.arctan2(z, np.sqrt(x**2+y**2))
+
+    if x == 0 and y == 0:
+        yaw = 0
+    else:
+        yaw = directed_angle([1,0],[x,y])
+
+    return yaw, pitch
+
 def norm(V):
     return np.linalg.norm(np.array(V))
 
