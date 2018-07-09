@@ -34,9 +34,13 @@ def norm(V):
 def normalize(V):
     n = norm(V)
     if n == 0:
-        return V
+        return V, n
     else:
-        return np.array(V)/n
+        return np.array(V)/n, n
+
+def limit_vec_magnitude(vec, max_magn):
+    vec, norm = normalize(vec)
+    return vec*min(max_magn, norm)
 
 def project(a,b):
     """
